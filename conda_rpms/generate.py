@@ -54,7 +54,7 @@ def render_env(branch_name, label, repo, config, tag):
                 'name': branch_name,
 		        'label' : label,
                 'summary': 'A SciTools environment.',
-                'version': len(repo.iter_commits()),}
+                'version': len(list(repo.iter_commits())),}
     install_prefix = config['install']['prefix']
     rpm_prefix = config['rpm']['prefix']
     return env_spec_tmpl.render(install_prefix=install_prefix,
