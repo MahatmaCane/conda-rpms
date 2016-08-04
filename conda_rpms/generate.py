@@ -49,13 +49,17 @@ def render_dist_spec(dist, config):
                                 rpm_prefix=rpm_prefix,
                                 install_prefix=install_prefix)
 
-def render_env(branch_name, label, tag):
+def render_env(branch_name, label, config, tag):
     env_info = {'url': 'http://link/to/gh',
                 'name': branch_name,
-		'label' : label,
+		        'label' : label,
                 'summary': 'A SciTools environment.',
                 'version': '1',}
-    return env_spec_tmpl.render(install_prefix='/opt/scitools', rpm_prefix='SciTools', env=env_info, labelled_tag=tag.split('-')[-1])
+    install_prefix = config['install']['prefix']
+    rpm_prefix = config['rpm']['prefix']
+    return env_spec_tmpl.render(install_prefix=install_prefix,
+                                rpm_prefix=rpm_prefix, env=env_info,
+                                labelled_tag=tag.split('-')[-1])
 
 
 def render_taggedenv(env_name, tag, pkgs, config):
@@ -89,4 +93,5 @@ if __name__ == '__main__':
     #print(render_dist_spec(args.distribution))
     #print(render_env('my_second_env', pkgs=['udunits2-2.2.20-0']))
     print(args)
-    print(render_installer({'name': 'python', 'version': '2.11.1', 'build': '0'}))
+    print(render_installer({'name': 'python', 'version': '2.11.1',
+                            'build': '0'}))
