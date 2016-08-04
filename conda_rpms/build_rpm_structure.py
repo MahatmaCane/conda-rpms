@@ -157,21 +157,10 @@ def create_rpmbuild_content(repo, target, config):
             #--------------- New for this ---------
 
             # Keep track of the labels which have tags - its those we want.
-            tags = []
-            envs = []
             for label, tag in labelled_tags.items():
-                deployed_name = tag.split('-', 2)[2]
-                label_target = deployed_name
-                label_location = os.path.join(target, branch.name, label)
-
-                env = '{}-{}'.format(branch.name, label)
-                tags.append(tag)
-                envs.append(env)
-                # If we wanted RPMS for each label, enable this.
-#                create_rpmbuild_for_label(env, tag, target)
-            for tag in tags:
                 create_rpmbuild_for_tag(repo, tag, target, config)
-
+                with open(os.path.join(target, 'SPECS', 'SciTools-env-{}-label-{}.spec'.format(branch.name, label)), 'w') as fh:
+                    fh.write(generate.render_env(branch.name, label, tag))
 
 def create_rpm_installer(target, config, python_spec='python'):
     rpm_prefix = config['rpm']['prefix']
