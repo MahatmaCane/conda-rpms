@@ -170,7 +170,7 @@ def create_rpmbuild_content(repo, target, config):
                 s = 'SciTools-env-{}-label-{}.spec'.format(branch.name, label)
                 with open(os.path.join(target, 'SPECS', s), 'w') as fh:
                     fh.write(generate.render_env(branch.name, label,
-                                                 config, tag))
+                                                 repo, config, tag))
 
 def create_rpm_installer(target, config, python_spec='python'):
     rpm_prefix = config['rpm']['prefix']
