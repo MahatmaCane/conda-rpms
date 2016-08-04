@@ -49,12 +49,12 @@ def render_dist_spec(dist, config):
                                 rpm_prefix=rpm_prefix,
                                 install_prefix=install_prefix)
 
-def render_env(branch_name, label, config, tag):
+def render_env(branch_name, label, repo, config, tag):
     env_info = {'url': 'http://link/to/gh',
                 'name': branch_name,
 		        'label' : label,
                 'summary': 'A SciTools environment.',
-                'version': '1',}
+                'version': len(repo.iter_commits()),}
     install_prefix = config['install']['prefix']
     rpm_prefix = config['rpm']['prefix']
     return env_spec_tmpl.render(install_prefix=install_prefix,
