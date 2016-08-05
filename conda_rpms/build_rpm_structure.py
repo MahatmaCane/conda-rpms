@@ -13,6 +13,7 @@ import time
 
 import conda.api
 import conda.fetch
+from logging import getLogger
 from conda.resolve import Resolve, MatchSpec
 from conda_gitenv import manifest_branch_prefix
 from conda_gitenv.deploy import tags_by_label, tags_by_env
@@ -24,6 +25,8 @@ import yaml
 import generate
 import install as conda_install
 
+stdoutlog = getLogger('stdoutlog')
+stdoutlog.setLevel(30)
 
 class Config(dict):
     def __init__(self, fname, store=None, key=None):
