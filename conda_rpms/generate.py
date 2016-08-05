@@ -52,7 +52,7 @@ def render_dist_spec(dist, config):
 def render_env(branch_name, label, repo, config, tag):
     env_info = {'url': 'http://link/to/gh',
                 'name': branch_name,
-		        'label' : label,
+		'label' : label,
                 'summary': 'A SciTools environment.',
                 'version': len(list(repo.iter_commits())),}
     install_prefix = config['install']['prefix']

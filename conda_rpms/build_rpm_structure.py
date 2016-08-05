@@ -143,8 +143,8 @@ def create_rpmbuild_for_tag(repo, tag_name, target, config):
 
     pkgs = [pkg for _, pkg in manifest]
     env_name, tag = tag_name.split('-')[1:]
-    s = '{}-env-{}-tag-{}.spec'.format(rpm_prefix, env_name, tag)
-    with open(os.path.join(target, 'SPECS', s), 'w') as fh:
+    fname = '{}-env-{}-tag-{}.spec'.format(rpm_prefix, env_name, tag)
+    with open(os.path.join(target, 'SPECS', fname), 'w') as fh:
         fh.write(generate.render_taggedenv(env_name, tag, pkgs, config, env_spec))
 
 
@@ -173,8 +173,8 @@ def create_rpmbuild_content(repo, target, config):
             # Keep track of the labels which have tags - its those we want.
             for label, tag in labelled_tags.items():
                 create_rpmbuild_for_tag(repo, tag, target, config)
-                s = 'SciTools-env-{}-label-{}.spec'.format(branch.name, label)
-                with open(os.path.join(target, 'SPECS', s), 'w') as fh:
+                fname = 'SciTools-env-{}-label-{}.spec'.format(branch.name, label)
+                with open(os.path.join(target, 'SPECS', fname), 'w') as fh:
                     fh.write(generate.render_env(branch.name, label,
                                                  repo, config, tag))
 
